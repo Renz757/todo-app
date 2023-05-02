@@ -1,15 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
-const todoArray = [
-    //    {
-    //     id: '1',
-    //     title: 'Test 1',
-    //     isCompleted: false
-    //    },
-];
+const todoArray = JSON.parse(localStorage.getItem('todoData') || '[]')
 
 const Todo = () => {
 
@@ -22,8 +16,7 @@ const Todo = () => {
                 todoObj
             ]
         );
-        console.log(todoState)
-        localStorage.setItem('todoData', [...todoState, todoObj])
+        localStorage.setItem('todoData', JSON.stringify([...todoState, todoObj]))
     };
 
     const completeTodo = (id, isCompleted) => {
@@ -31,16 +24,20 @@ const Todo = () => {
         setTodoState(todoState.map(item => {
             if (item.id === id) {
                 //update isCompleted
-               item.isCompleted = !isCompleted
+                item.isCompleted = !isCompleted
             }
             //return array with update, isCompleted 
             return item
         }));
+
+        
+
     };
 
     //return new filtered array without the param that matches id
     const removeSelectedItem = id => {
         setTodoState(todoState.filter(item => item.id !== id))
+        localStorage.setItem('todoData', JSON.stringify(todoState.filter(item => item.id !== id)))
     };
 
 
