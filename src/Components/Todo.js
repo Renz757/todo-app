@@ -23,8 +23,13 @@ const Todo = () => {
         //loop through array of objects and match id with the param id
         setTodoState(todoState.map(item => {
             if (item.id === id) {
-                //update isCompleted
+                //update isCompleted 
                 item.isCompleted = !isCompleted
+                localStorage.setItem('todoData', JSON.stringify([...todoState, item.isCompleted]))
+                //todo: fix bug - when completing a todo a boolean value is added 
+                //      amongst the obejects stored in the todoState array,
+                //      thus causing a new empty item to generate after page reload  
+                console.log(item)
             }
             //return array with update, isCompleted 
             return item
