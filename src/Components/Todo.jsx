@@ -25,18 +25,13 @@ const Todo = () => {
             if (item.id === id) {
                 //update isCompleted 
                 item.isCompleted = !isCompleted
-                localStorage.setItem('todoData', JSON.stringify([...todoState, item.isCompleted]))
-                //todo: fix bug - when completing a todo a boolean value is added 
-                //      amongst the obejects stored in the todoState array,
-                //      thus causing a new empty item to generate after page reload  
-                console.log(item)
+                
+                localStorage.setItem('todoData', JSON.stringify(todoState)) 
+                console.log(todoState)
             }
             //return array with update, isCompleted 
             return item
         }));
-
-        
-
     };
 
     //return new filtered array without the param that matches id
@@ -44,8 +39,6 @@ const Todo = () => {
         setTodoState(todoState.filter(item => item.id !== id))
         localStorage.setItem('todoData', JSON.stringify(todoState.filter(item => item.id !== id)))
     };
-
-
 
     return (
         <>
